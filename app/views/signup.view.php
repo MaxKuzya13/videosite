@@ -11,11 +11,18 @@
                 <div class="class_38"  >
                     to create your account
                 </div>
+                <?php if(message()):?>
+                    <div style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000">
+                        <?=message('', true)?>
+                    </div>
+                <?php endif; ?>
+
                 <?php if(!empty($errors)):?>
                     <div style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000">
                         Please fix the errors
                     </div>
                 <?php endif; ?>
+
                 <input value="<?=old_value('username')?>" placeholder="Username" type="text" name="username" class="class_39">
                 <?php if(!empty($errors['username'])):?>
                     <div><small style="color: red"><?= $errors['username']?></small></div>
