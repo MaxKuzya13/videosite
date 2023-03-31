@@ -38,15 +38,13 @@
                         Playlist:
                     </label>
                     <select class="class_70"  name="playlist_id">
-                        <option >
-                            --Select--
+                        <option value="">
+                            --Select Playlist--
                         </option>
-                        <option >
+                        <option value="">
                             Option 1
                         </option>
-                        <option >
-                            Option 2
-                        </option>
+
                     </select>
                 </div>
                 <div class="class_71" >
@@ -56,10 +54,10 @@
                     <textarea placeholder="Description" name="description" class="class_73"><?=old_value('description')?></textarea>
                 </div>
             </div>
-            <div class="hide class_74" >
-                <div class="class_75" >
-                    <div class="js-prog" >
-                        50%
+            <div class="js-prog-holder hide class_74" >
+                <div class="js-prog class_75" style="width: 0" >
+                    <div>
+                        0%
                     </div>
                 </div>
             </div>
@@ -93,8 +91,12 @@
             alert("Please wait until the upload is complete");
             return;
         }
+
+        document.querySelector(".js-prog-holder").classList.remove("hide");
+        document.querySelector(".js-prog").style.width = "0%";
+
         let myform = e.currentTarget;
-        let inputs = myform.querySelectorAll('input, select, textarea');
+        let inputs = myform.querySelectorAll('input,select,textarea');
         let data = new FormData();
         let optional_fields = ['description', 'playlist_id', 'image', 'file'];
 
@@ -111,7 +113,7 @@
 
         for (let i = inputs.length - 1; i >= 0; i--)
         {
-            if(inputs[i].value == '' && optional_fields.includes(inputs[i].name))
+            if(inputs[i].value == '' && !optional_fields.includes(inputs[i].name))
             {
                 // empty value
                 alert("The field: "+inputs[i].name+" is required!");
@@ -127,13 +129,14 @@
 
         uploading = true;
         // send data via ajax
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
 
-        xhr.upload.addEventListener('progress', function(){
+        xhr.upload.addEventListener('progress', function(e){
             let percent = Math.round((e.loaded / e.total) * 100);
+            document.querySelector(".js-prog").style.width = percent + "%";
+            document.querySelector(".js-prog").children[0].innerHTML = percent + "%";
         });
         xhr.addEventListener('readystatechange', function() {
-        }
             if(xhr.readyState == 4)
             {
                 if(xhr.status == 200)
@@ -145,7 +148,7 @@
                 }
                 uploading = false;
             }
-        })
+        });
         xhr.open('post', '<?=ROOT?>/ajax', true);
         xhr.send(data);
     }
