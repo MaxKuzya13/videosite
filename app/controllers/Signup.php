@@ -14,12 +14,14 @@ class Signup
 
     public function index()
     {
-        $data = [];
+        $data['errors'] = [];
 
         $req = new Request();
+        $user = new User();
+
         if($req->posted())
         {
-            $user = new User();
+
 
             $post = $req->post();
 
@@ -27,7 +29,7 @@ class Signup
             {
                 $post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
                 $post['date_created'] = date("Y-m-d H:i:s");
-                $post['role'] = 'user';
+                $post['role'] = "user";
 
                 $user->insert($post);
 

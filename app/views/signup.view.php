@@ -17,31 +17,31 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if(!empty($errors)):?>
+                <?php if(!empty($errors)): ?>
                     <div style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000">
                         Please fix the errors
                     </div>
                 <?php endif; ?>
 
-                <input value="<?=old_value('username')?>" placeholder="Username" type="text" name="username" class="class_39">
+                <input value="<?=old_value('username')?>" placeholder="Username" type="username" name="username" class="class_39">
                 <?php if(!empty($errors['username'])):?>
-                    <div><small style="color: red"><?= $errors['username']?></small></div>
+                    <div><small style="color: red"><?=$errors['username']?></small></div>
                 <?php endif; ?>
                 <input value="<?=old_value('email')?>" placeholder="Email" type="email" name="email" class="class_39" >
                 <?php if(!empty($errors['email'])):?>
-                    <div><small style="color: red"><?= $errors['email']?></small></div>
+                    <div><small style="color: red"><?=$errors['email']?></small></div>
                 <?php endif;?>
                 <input value="<?=old_value('password')?>" placeholder="Password" type="password" name="password" class="class_39" >
                 <?php if(!empty($errors['password'])):?>
-                    <div><small style="color: red"><?= $errors['password']?></small></div>
+                    <div><small style="color: red"><?=$errors['password']?></small></div>
                 <?php endif;?>
                 <input placeholder="Retype password" type="password" name="retype_password" class="class_39" >
                 <label  >
                     <input value="1" <?=old_value('terms', 1)?> type="checkbox" name="terms"  class="class_40">
                     &nbsp;Accept terms and conditions
                 </label>
-                <?php if(!empty($errors['password'])):?>
-                    <div><small style="color: red"><?= $errors['terms']?></small></div>
+                <?php if(!empty($errors['terms'])):?>
+                    <div><small style="color: red"><?=$errors['terms']?></small></div>
                 <?php endif;?>
                 <div class="class_38"  >
                    Already have an account? <a href="<?=ROOT?>/login">Login here</a>
