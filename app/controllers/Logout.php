@@ -2,18 +2,21 @@
 
 namespace Controller;
 
+
 use Model\Session;
 
-defined('ROOTPATH') OR exit ('Access Denied');
-// Home class
 
-class Home
+defined('ROOTPATH') OR exit ('Access Denied');
+// Logout class
+
+class Logout
 {
     use MainController;
 
     public function index()
     {
         $ses = new Session();
-        $this->view('home');
+        $ses->logout();
+        redirect('login');
     }
 }

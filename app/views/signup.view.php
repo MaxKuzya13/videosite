@@ -37,7 +37,7 @@
                 <?php endif;?>
                 <input placeholder="Retype password" type="password" name="retype_password" class="class_39" >
                 <label  >
-                    <input value="1" <?=old_value('terms', 1)?> type="checkbox" name="terms"  class="class_40">
+                    <input value="1" <?=old_checked('terms', 1)?> type="checkbox" name="terms"  class="class_40">
                     &nbsp;Accept terms and conditions
                 </label>
                 <?php if(!empty($errors['terms'])):?>
@@ -45,7 +45,6 @@
                 <?php endif;?>
                 <div class="class_38"  >
                    Already have an account? <a href="<?=ROOT?>/login">Login here</a>
-                    <br >
                 </div>
                 <button class="class_41"  >
                     Create account

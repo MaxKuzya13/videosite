@@ -1,5 +1,5 @@
 <?php $this->view('header'); ?>
-
+<?php ?>
 <div class="class_13" >
     <div class="class_14" >
         <div class="class_15" >
