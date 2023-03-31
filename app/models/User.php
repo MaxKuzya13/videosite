@@ -41,19 +41,19 @@ class User
         {
             $this->errors['password'] = "Password is required";
         }else
-        if($data['password'] !== $data['retype_password'])
-        {
-            $this->errors['password'] = "Passwords do not match";
-        }
+            if($data['password'] !== $data['retype_password'])
+            {
+                $this->errors['password'] = "Passwords do not match";
+            }
 
         if(empty($data['username']))
         {
             $this->errors['username'] = "Username is required";
         }else
-        if(!preg_match("/^[a-zA-Z]+$/", trim($data['username'])))
-        {
-            $this->errors['username'] = "Username can only have letters without spaces";
-        }
+            if(!preg_match("/^[a-zA-Z]+$/", trim($data['username'])))
+            {
+                $this->errors['username'] = "Username can only have letters without spaces";
+            }
 
         if(empty($data['terms']))
         {

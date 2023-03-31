@@ -14,13 +14,13 @@ class Signup
 
     public function index()
     {
-        $data['errors'] = [];
+        $data = [];
 
         $req = new Request();
-        $user = new User();
-
         if($req->posted())
         {
+            $user = new User();
+
             $post = $req->post();
 
             if($user->validate($post))
@@ -36,6 +36,7 @@ class Signup
             }
 
             $data['errors'] = $user->errors;
+
         }
 
         $this->view('signup', $data);

@@ -13,7 +13,7 @@
                 </div>
                 <?php if(message()):?>
                     <div style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000">
-                        <?=message('', true)?>
+                        <?=message('', true)?>;
                     </div>
                 <?php endif; ?>
 
@@ -27,7 +27,7 @@
                 <?php if(!empty($errors['username'])):?>
                     <div><small style="color: red"><?= $errors['username']?></small></div>
                 <?php endif; ?>
-                <input value="<?=old_value('email')?>" placeholder="Email" type="text" name="email" class="class_39" >
+                <input value="<?=old_value('email')?>" placeholder="Email" type="email" name="email" class="class_39" >
                 <?php if(!empty($errors['email'])):?>
                     <div><small style="color: red"><?= $errors['email']?></small></div>
                 <?php endif;?>
