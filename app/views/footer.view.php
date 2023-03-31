@@ -26,13 +26,13 @@
         <h4  class="class_30" >
             User links:
         </h4>
-        <a href="#"  class="class_31" >
+        <a href=""<?=ROOT?>/admin"  class="class_31" >
             Admin
         </a>
-        <a href="#"  class="class_32" >
+        <a href="<?=ROOT?>/login"  class="class_32" >
             Login
         </a>
-        <a href="#"  class="class_32" >
+        <a href=""<?=ROOT?>/signup"  class="class_32" >
             Signup
         </a>
     </div>

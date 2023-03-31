@@ -1,6 +1,4 @@
-<?php
-$this->view('header');
-?>
+<?php $this->view('header'); ?>
 
 <div class="class_13" >
     <div class="class_14" >
@@ -81,6 +79,4 @@ $this->view('header');
             Video Playlist name
         </h4>
     </div>
-<?php
-$this->view('footer');
-?>
+<?php $this->view('footer'); ?>

@@ -11,7 +11,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
     define('DBPASS', '');
     define('DBDRIVER', '');
 
-    define("ROOT", 'http://localhost/MVC/public');
+    define("ROOT", 'http://localhost/videosite/public');
 
 } else {
 //    database config
@@ -25,8 +25,8 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 
 }
 
-define ('APP_NAME', 'My Website');
-define ('APP_DESC', 'Best website on the planet');
+define ('APP_NAME', 'My video website');
+define ('APP_DESC', 'Best video website on the planet');
 
 // True means show errors
 define('DEBUG', true);
