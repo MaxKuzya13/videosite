@@ -1,5 +1,9 @@
 <?php $this->view('header'); ?>
-
+<style>
+    .hide{
+        display: none;
+    }
+</style>
     <section class="class_60" >
         <form onsubmit="submit_form(event)" method="post" enctype="multipart/form-data" class="class_61" >
             <h1 class="class_25" >
@@ -8,7 +12,7 @@
             <label>
                 <div>Featured Image:</div>
                 <img src="<?=get_image()?>" class="class_62" style="cursor: pointer" >
-                <input type="file" name="image"  class="class_63">
+                <input onchange="display_image(event)" type="file" name="image"  class="class_63">
             </label>
             <div class="class_64" >
                 <div class="class_65" >
@@ -18,11 +22,15 @@
                     <input value="<?=old_value('title')?>" placeholder="Title" type="text" name="title" class="class_67" >
                 </div>
 
-                <div class="class_65" >
+                <div class="class_65" style="flex-direction: column">
                     <label  class="class_66" >
                         Video File:
                     </label>
-                    <input type="file" name="file" class="class_63" style="display: block;">
+                    <input onchange="display_video(event)" type="file" name="file" class="class_63" style="display: block;">
+                    <br>
+                    <video controls width="250" height="100" style="margin-top: 10px">
+                        <source src="" type="video/mp4">
+                    </video>
                 </div>
 
                 <div class="class_68" >
@@ -48,9 +56,9 @@
                     <textarea placeholder="Description" name="description" class="class_73"><?=old_value('description')?></textarea>
                 </div>
             </div>
-            <div class="class_74" >
+            <div class="hide class_74" >
                 <div class="class_75" >
-                    <div  style="" >
+                    <div class="js-prog" >
                         50%
                     </div>
                 </div>
@@ -72,13 +80,19 @@
 
 <script>
 
-    var image_added = false;
-    var file_added = false:
+    let image_added = false;
+    let file_added = false;
+    let uploading = false;
 
     function submit_form(e)
     {
         e.preventDefault()
 
+        if(uploading)
+        {
+            alert("Please wait until the upload is complete");
+            return;
+        }
         let myform = e.currentTarget;
         let inputs = myform.querySelectorAll('input, select, textarea');
         let data = new FormData();
@@ -86,7 +100,6 @@
 
         if(!image_added)
         {
-            console.log('qq');
             alert('Please add a valid image');
             return;
         }
@@ -96,7 +109,7 @@
             return;
         }
 
-        for (var i = inputs.length - 1; i >= 0; i--)
+        for (let i = inputs.length - 1; i >= 0; i--)
         {
             if(inputs[i].value == '' && optional_fields.includes(inputs[i].name))
             {
@@ -110,8 +123,63 @@
             } else {
                 data.append(inputs[i].name, inputs[i].value);
             }
-
         }
+
+        uploading = true;
+        // send data via ajax
+        var xhr = new XMLHttpRequest();
+
+        xhr.upload.addEventListener('progress', function(){
+            let percent = Math.round((e.loaded / e.total) * 100);
+        });
+        xhr.addEventListener('readystatechange', function() {
+        }
+            if(xhr.readyState == 4)
+            {
+                if(xhr.status == 200)
+                {
+                    alert("Uploading complete!");
+                    window.location.reload();
+                }else{
+                    alert("An error occured");
+                }
+                uploading = false;
+            }
+        })
+        xhr.open('post', '<?=ROOT?>/ajax', true);
+        xhr.send(data);
+    }
+
+    function display_image(e)
+    {
+        let allowed = ['image/jpeg', 'image/png', 'image/webp'];
+        let file = e.currentTarget.files[0];
+
+        if(!allowed.includes(file.type))
+        {
+            alert('Only image formats allowed are: '+allowed.toString().replaceAll("image/", ""));
+            image_added = false;
+            return;
+        }
+
+        image_added = true;
+        e.currentTarget.parentNode.querySelector("img").src = URL.createObjectURL(file);
+    }
+
+    function display_video(e)
+    {
+        let allowed = ['video/mp4'];
+        let file = e.currentTarget.files[0];
+
+        if(!allowed.includes(file.type))
+        {
+            alert('Only video formats allowed are: '+allowed.toString().replaceAll("video/", ""));
+            file_added = false;
+            return;
+        }
+
+        file_added = true;
+        e.currentTarget.parentNode.querySelector("video").src = URL.createObjectURL(file);
     }
 
 </script>
