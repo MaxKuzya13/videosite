@@ -4,7 +4,9 @@
  * pagination class for pagination
  */
 
-namespace Core;
+namespace Model;
+
+use const Core\ROOT;
 
 defined('ROOTPATH') OR exit('Access Denied!');
 

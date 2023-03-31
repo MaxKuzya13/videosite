@@ -5,7 +5,7 @@
  * Save or read data to the current session
  */
 
-namespace Core;
+namespace Model;
 
 defined('ROOTPATH') OR exit('Access Denied!');
 

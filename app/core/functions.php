@@ -77,7 +77,7 @@ function get_pagination_vars():array
 // saves or displays a saved message to the user
 function message(string $msg = null, bool $clear = false)
 {
-    $ses = new Core\Session();
+    $ses = new Model\Session();
 
     if(!empty($msg)) {
         $ses->set('message', $msg);
