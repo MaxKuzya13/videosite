@@ -25,58 +25,22 @@
     <h1  class="class_22" >
         Featured Videos
     </h1>
-    <div class="class_23" >
-        <img src="assets/images/beautiful-happy-african-american-woman-has-surprised-joyful-expression-cannot-believe-sudden-success-dressed-casual-white-jumper_273609-43273.jpg" class="class_24" >
+    <?php if(!empty($videos)): ?>
+        <?php foreach($videos as $video): ?>
+    <a href="<?=ROOT?>/play/<?=$video->slug?>" class="class_23" >
+        <img src="<?=get_image($video->image)?>" class="class_24" >
         <h2  class="class_25" >
-            Video title
+            <?=esc($video->title)?>
         </h2>
         <h4  class="class_25" >
-            Video Playlist name
+            <?=esc($video->playlist_name)?>
         </h4>
+    </a>
+        <?php endforeach; ?>
+    <?php else: ?>
+    <div style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000">
+        No videos found!
     </div>
-    <div class="class_23" >
-        <img src="assets/images/beautiful-sincere-happy-girl-smiling-laughing_176420-9693.jpg" class="class_24" >
-        <h2  class="class_25" >
-            Video title
-        </h2>
-        <h4  class="class_25" >
-            Video Playlist name
-        </h4>
-    </div>
-    <div class="class_23" >
-        <img src="assets/images/beautiful-woman-portrait_144627-27917.jpg" class="class_24" >
-        <h2  class="class_25" >
-            Video title
-        </h2>
-        <h4  class="class_25" >
-            Video Playlist name
-        </h4>
-    </div>
-    <div class="class_23" >
-        <img src="assets/images/close-up-portrait-attractive-man-with-afro-hairstyle-stubble-wears-orange-anorak_273609-8595.jpg" class="class_24" >
-        <h2  class="class_25" >
-            Video title
-        </h2>
-        <h4  class="class_25" >
-            Video Playlist name
-        </h4>
-    </div>
-    <div class="class_23" >
-        <img src="assets/images/confident-attractive-caucasian-guy-beige-pullon-smiling-broadly-while-standing-against-gray_176420-44508.jpg" class="class_24" >
-        <h2  class="class_25" >
-            Video title
-        </h2>
-        <h4  class="class_25" >
-            Video Playlist name
-        </h4>
-    </div>
-    <div class="class_23" >
-        <img src="assets/images/photo-stupefied-dark-haired-girl-with-bated-breath-stares-with-bugged-eyes-being-shocked-by-high-prices_273609-17559.jpg" class="class_24" >
-        <h2  class="class_25" >
-            Video title
-        </h2>
-        <h4  class="class_25" >
-            Video Playlist name
-        </h4>
-    </div>
+    <?php endif; ?>
+
 <?php $this->view('footer'); ?>
