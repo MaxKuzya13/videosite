@@ -9,7 +9,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
     define('DBHOST', 'localhost');
     define('DBUSER', 'root');
     define('DBPASS', '');
-    define('DBDRIVER', 'mysql');
+    define('DBDRIVER', '');
 
     define("ROOT", 'http://localhost/videosite/public');
 

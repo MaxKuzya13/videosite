@@ -155,7 +155,7 @@
                 uploading = false;
             }
         });
-        xhr.open('post', '<?=ROOT?>/ajax', true);
+        xhr.open('post','<?=ROOT?>/ajax', true);
         xhr.send(data);
     }
 

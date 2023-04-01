@@ -35,7 +35,6 @@ class Ajax
 
             if($video->validate($data))
             {
-
                 if($data['data_type'] == 'new_video')
                 {
                     $folder = 'uploads/';
@@ -45,6 +44,13 @@ class Ajax
                     }
                     $data['image'] = $folder . time() . $_FILES['image']['name'];
                     $data['file'] = $folder . time() . $_FILES['file']['name'];
+                    $data['date'] = date("Y-m-d H:i:s");
+                    $data['slug'] = $video->create_slug($data['title']);
+
+                    while($video->first(['slug'=>$data['slug']])){
+                        $data['slug'] = $data['slug'] . rand(10000, 999999);
+                    }
+
 
                     move_uploaded_file($_FILES['image']['tmp_name'], $data['image']);
                     move_uploaded_file($_FILES['file']['tmp_name'], $data['file']);
@@ -58,7 +64,6 @@ class Ajax
             } else {
                 $info['errors'] = $video->errors;
             }
-
         }
 
         echo json_encode($info);
