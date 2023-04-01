@@ -41,10 +41,13 @@
                         <option value="">
                             --Select Playlist--
                         </option>
-                        <option value="">
-                            Option 1
-                        </option>
-
+                        <?php if(!empty($playlists)):?>
+                            <?php foreach($playlists as $playlist):?>
+                                <option value="<?=$playlist->id?>">
+                                    <?=$playlist->playlist_name?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
                 </div>
                 <div class="class_71" >
@@ -127,6 +130,7 @@
             }
         }
 
+        data.append('data_type', 'new_video');
         uploading = true;
         // send data via ajax
         let xhr = new XMLHttpRequest();
@@ -142,10 +146,12 @@
                 if(xhr.status == 200)
                 {
                     alert("Uploading complete!");
-                    window.location.reload();
+                    // window.location.reload();
                 }else{
                     alert("An error occured");
                 }
+
+                console.log(xhr.responseText);
                 uploading = false;
             }
         });

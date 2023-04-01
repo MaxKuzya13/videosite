@@ -30,16 +30,16 @@
             </div>
         </div>
         <div class="class_10" >
-            <a href="#"  class="class_11" >
+            <a href="<?=ROOT?>"  class="class_11" >
                 Home
             </a>
-            <a href="#"  class="class_12" >
+            <a href="<?=ROOT?>/latest"  class="class_12" >
                 Latest
             </a>
-            <a href="#"  class="class_12" >
+            <a href="<?=ROOT?>/popular"  class="class_12" >
                 Popular
             </a>
-            <a href="#"  class="class_12" >
+            <a href="<?=ROOT?>/playlist"  class="class_12" >
                 Playlists
             </a>
         </div>

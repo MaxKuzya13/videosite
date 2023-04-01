@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Model\Playlist;
 use Model\Request;
 use Model\Session;
 use Model\Video as myVideo;
@@ -18,10 +19,13 @@ class Video
         $ses = new Session();
         $req = new Request();
         $video = new myVideo();
+        $playlist = new Playlist();
 
         if($ses->user('role') != 'admin')
             redirect('login');
 
-        $this->view('video');
+        $data['playlists'] = $playlist->query("select * from playlists");
+
+        $this->view('video', $data);
     }
 }

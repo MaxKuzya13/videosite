@@ -16,49 +16,31 @@ class Video
 
     protected $allowedColumns = [
 
-        'username',
-        'email',
-        'password',
-        'role',
-        'date_created',
-        'date_updated',
+        'title',
+        'image',
+        'file',
+        'playlist_id',
+        'date',
+        'slug',
+        'views',
+        'popularity',
+        'description',
     ];
 
     public function validate($data)
     {
         $this->errors = [];
 
-        if(empty($data['email']))
+
+        if(empty($data['title']))
         {
-            $this->errors['email'] = "Email is required";
+            $this->errors['title'] = "Video title is required";
         }else
-            if(!filter_var($data['email'],FILTER_VALIDATE_EMAIL))
+            if(!preg_match("/^[a-zA-Z]+$/", trim($data['title'])))
             {
-                $this->errors['email'] = "Email is not valid";
+                $this->errors['title'] = "Video title can only have letters & spaces";
             }
 
-        if(empty($data['password']))
-        {
-            $this->errors['password'] = "Password is required";
-        }else
-            if($data['password'] !== $data['retype_password'])
-            {
-                $this->errors['password'] = "Passwords do not match";
-            }
-
-        if(empty($data['videoname']))
-        {
-            $this->errors['videoname'] = "videoname is required";
-        }else
-            if(!preg_match("/^[a-zA-Z]+$/", trim($data['videoname'])))
-            {
-                $this->errors['videoname'] = "Videoname can only have letters without spaces";
-            }
-
-        if(empty($data['terms']))
-        {
-            $this->errors['terms'] = "Please accept the terms and conditions";
-        }
 
         if(empty($this->errors))
         {
