@@ -54,7 +54,7 @@
         <a href="<?=ROOT?>/video/new"  class="class_31" >
             Upload video
         </a>
-        <a href=""<?=ROOT?>/playlist/new"  class="class_32" >
+        <a href="<?=ROOT?>/playlist/new" class="class_32" >
             New Playlist
         </a>
         <?php endif; ?>

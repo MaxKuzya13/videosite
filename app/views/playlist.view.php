@@ -7,7 +7,7 @@
     <section class="class_60" >
         <form onsubmit="submit_form(event)" method="post" enctype="multipart/form-data" class="class_61" >
             <h1 class="class_25" >
-                Upload video
+                New Playlist
             </h1>
             <label>
                 <div>Featured Image:</div>
@@ -17,45 +17,11 @@
             <div class="class_64" >
                 <div class="class_65" >
                     <label  class="class_66" >
-                        Title:
+                        Playlist Name:
                     </label>
-                    <input value="<?=old_value('title')?>" placeholder="Title" type="text" name="title" class="class_67" >
+                    <input value="<?=old_value('playlist_name')?>" placeholder="Name" type="text" name="playlist_name" class="class_67" >
                 </div>
 
-                <div class="class_65" style="flex-direction: column">
-                    <label  class="class_66" >
-                        Video File:
-                    </label>
-                    <input onchange="display_video(event)" type="file" name="file" class="class_63" style="display: block;">
-                    <br>
-                    <video controls width="250" height="100" style="margin-top: 10px">
-                        <source src="" type="video/mp4">
-                    </video>
-                </div>
-
-                <div class="class_68" >
-                    <label  class="class_69" >
-                        Playlist:
-                    </label>
-                    <select class="class_70"  name="playlist_id">
-                        <option value="">
-                            --Select Playlist--
-                        </option>
-                        <?php if(!empty($playlists)):?>
-                            <?php foreach($playlists as $playlist):?>
-                                <option value="<?=$playlist->id?>">
-                                    <?=$playlist->playlist_name?>
-                                </option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                </div>
-                <div class="class_71" >
-                    <label class="class_72" >
-                        Description:
-                    </label>
-                    <textarea placeholder="Description" name="description" class="class_73"><?=old_value('description')?></textarea>
-                </div>
             </div>
             <div class="js-prog-holder hide class_74" >
                 <div class="js-prog class_75" style="width: 0" >
@@ -82,7 +48,6 @@
 <script>
 
     let image_added = false;
-    let file_added = false;
     let uploading = false;
 
     function submit_form(e)
@@ -101,16 +66,11 @@
         let myform = e.currentTarget;
         let inputs = myform.querySelectorAll('input,select,textarea');
         let data = new FormData();
-        let optional_fields = ['description', 'image', 'file'];
+        let optional_fields = ['image'];
 
         if(!image_added)
         {
             alert('Please add a valid image');
-            return;
-        }
-        if(!file_added)
-        {
-            alert('Please add a valid video file');
             return;
         }
 
@@ -122,7 +82,7 @@
                 alert("The field: "+inputs[i].name+" is required!");
                 return;
             }
-            if(inputs[i].name == 'image' || inputs[i].name == 'file')
+            if(inputs[i].name == 'image')
             {
                 data.append(inputs[i].name, inputs[i].files[0]);
             } else {
@@ -130,7 +90,7 @@
             }
         }
 
-        data.append('data_type', 'new_video');
+        data.append('data_type', 'new_playlist');
         uploading = true;
         // send data via ajax
         let xhr = new XMLHttpRequest();
@@ -146,7 +106,7 @@
                 if(xhr.status == 200)
                 {
                     alert("Uploading complete!");
-                    window.location.reload();
+                    // window.location.reload();
                 }else{
                     alert("An error occured");
                 }
@@ -175,20 +135,5 @@
         e.currentTarget.parentNode.querySelector("img").src = URL.createObjectURL(file);
     }
 
-    function display_video(e)
-    {
-        let allowed = ['video/mp4'];
-        let file = e.currentTarget.files[0];
-
-        if(!allowed.includes(file.type))
-        {
-            alert('Only video formats allowed are: '+allowed.toString().replaceAll("video/", ""));
-            file_added = false;
-            return;
-        }
-
-        file_added = true;
-        e.currentTarget.parentNode.querySelector("video").src = URL.createObjectURL(file);
-    }
 
 </script>
