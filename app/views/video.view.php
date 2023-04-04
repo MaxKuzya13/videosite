@@ -95,8 +95,7 @@
             return;
         }
 
-        document.querySelector(".js-prog-holder").classList.remove("hide");
-        document.querySelector(".js-prog").style.width = "0%";
+
 
         let myform = e.currentTarget;
         let inputs = myform.querySelectorAll('input,select,textarea');
@@ -129,6 +128,9 @@
                 data.append(inputs[i].name, inputs[i].value);
             }
         }
+
+        document.querySelector(".js-prog-holder").classList.remove("hide");
+        document.querySelector(".js-prog").style.width = "0%";
 
         data.append('data_type', 'new_video');
         uploading = true;

@@ -6,9 +6,9 @@
     </h1>
     <?php if(!empty($playlists)): ?>
         <?php foreach($playlists as $playlist): ?>
-    <a href="<?=ROOT?>/play/<?=$playlist->slug?>" class="class_23" >
+    <a style="vertical-align: top;" href="<?=ROOT?>/play/<?=$playlist->video->slug ?? $playlist->slug?>" class="class_23" >
         <img src="<?=get_image($playlist->image)?>" class="class_24" >
-        <h2  class="class_25" >
+        <h2  class="class_25" style="font-size: 16px;">
             <?=esc($playlist->playlist_name)?>
         </h2>
     </a>

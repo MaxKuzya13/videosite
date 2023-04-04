@@ -64,7 +64,7 @@ Trait Model
 
         $query = trim($query, " && ");
 
-        $query .= " limit $this->limit offset $this->offset ";
+        $query .= " order by  $this->order_column $this->order_type limit $this->limit offset $this->offset ";
         $data = array_merge($data, $data_not);
 
         $result = $this->query($query, $data);

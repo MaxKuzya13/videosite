@@ -29,7 +29,7 @@ class Playlist
         {
             $this->errors['playlist_name'] = "Playlist name is required";
         }else
-            if(!preg_match("/^[a-zA-Z]+$/", trim($data['playlist_name'])))
+            if(!preg_match("/^[a-zA-Z \&\-]+$/", trim($data['playlist_name'])))
             {
                 $this->errors['playlist_name'] = "Playlists name can only have letters & spaces";
             }

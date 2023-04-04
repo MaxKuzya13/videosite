@@ -9,6 +9,9 @@
             <h1 class="class_25" >
                 New Playlist
             </h1>
+
+            <div class="js-errors hide" style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000"></div>
+
             <label>
                 <div>Featured Image:</div>
                 <img src="<?=get_image()?>" class="class_62" style="cursor: pointer" >
@@ -60,8 +63,6 @@
             return;
         }
 
-        document.querySelector(".js-prog-holder").classList.remove("hide");
-        document.querySelector(".js-prog").style.width = "0%";
 
         let myform = e.currentTarget;
         let inputs = myform.querySelectorAll('input,select,textarea');
@@ -90,6 +91,9 @@
             }
         }
 
+        document.querySelector(".js-prog-holder").classList.remove("hide");
+        document.querySelector(".js-prog").style.width = "0%";
+
         data.append('data_type', 'new_playlist');
         uploading = true;
         // send data via ajax
@@ -105,8 +109,20 @@
             {
                 if(xhr.status == 200)
                 {
-                    alert("Uploading complete!");
-                    // window.location.reload();
+                    let obj = JSON.parse(xhr.responseText);
+                    if(obj.success)
+                    {
+                        alert("Uploading complete!");
+                        window.location.reload();
+                    }else {
+                        let str = '';
+                        for(key in obj.errors) {
+                            str += obj.errors[key] + "<br>";
+                        }
+
+                        document.querySelector(".js-errors").innerHTML = str;
+                        document.querySelector(".js-errors").classList.remove("hide");
+                    }
                 }else{
                     alert("An error occured");
                 }
