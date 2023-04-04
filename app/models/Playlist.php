@@ -18,6 +18,7 @@ class Playlist
 
         'playlist_name',
         'slug',
+        'image',
     ];
 
     public function validate($data)

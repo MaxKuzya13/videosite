@@ -30,16 +30,16 @@
             </div>
         </div>
         <div class="class_10" >
-            <a href="<?=ROOT?>"  class="class_11" >
+            <a href="<?=ROOT?>"  class="<?=(URL('page') == 'home') ? 'class_11' : 'class_12'?>" >
                 Home
             </a>
-            <a href="<?=ROOT?>/latest"  class="class_12" >
+            <a href="<?=ROOT?>/latest"  class="<?=(URL('page') == 'latest') ? 'class_11' : 'class_12'?>" >
                 Latest
             </a>
-            <a href="<?=ROOT?>/popular"  class="class_12" >
+            <a href="<?=ROOT?>/popular"  class="<?=(URL('page') == 'popular') ? 'class_11' : 'class_12'?>" >
                 Popular
             </a>
-            <a href="<?=ROOT?>/playlist"  class="class_12" >
+            <a href="<?=ROOT?>/playlists"  class="<?=(URL('page') == 'playlist') ? 'class_11' : 'class_12'?>" >
                 Playlists
             </a>
         </div>
