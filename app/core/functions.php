@@ -63,6 +63,17 @@ function get_image(mixed $file = '', string $type = 'post'): string
     }
 }
 
+function get_video(mixed $file = '', string $type = 'post'): string
+{
+    $file = $file ?? '';
+    if(file_exists($file))
+    {
+        return ROOT . '/' . $file;
+    }
+
+    return '';
+}
+
 // returns pagination links
 function get_pagination_vars():array
 {

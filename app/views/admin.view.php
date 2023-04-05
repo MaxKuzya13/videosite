@@ -4,51 +4,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin | <?=APP_NAME?></title>
-    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets_admin/css/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets_admin/css/styles.css?6397">
+    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets_page/css/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets_page/css/styles.css">
 </head>
 <body>
 
 
+<?php
+    $title = URL(1) ?? 'dashboard';
+
+?>
 <div class="class_1" >
     <div class="class_2" >
         <div class="class_3" >
-            <img src="<?=ROOT?>/assets_admin/images/57.png" class="class_4" >
+            <img src="<?=ROOT?>/assets_page/images/57.png" class="class_4" >
             <h1 class="class_5"  >
-                Mary Jane
-                <br >
+                <?=$ses->user('username')?>
             </h1>
         </div>
-        <a href="#" class="class_6"  >
+        <a href="<?=ROOT?>/admin" class="class_6">
             <div class="class_7" >
-                <div class="class_8" >
-                    Menu
+                <div class="<?=($title == 'dashboard') ? 'class_8' : 'class_11'?>">
+                    Dashboard
                 </div>
                 <div class="class_9" >
-                    <i  class="bi bi-list class_10">
-                    </i>
+                    <i  class="bi bi-list class_10"></i>
                 </div>
             </div>
         </a>
-        <a href="#" class="class_6"  >
+        <a href="<?=ROOT?>/admin/users" class="class_6"  >
             <div class="class_7" >
-                <div class="class_11" >
+                <div class="<?=($title == 'users') ? 'class_8' : 'class_11'?>" >
                     Users
                 </div>
                 <div class="class_9" >
-                    <i  class="bi bi-people class_10">
-                    </i>
+                    <i  class="bi bi-people class_10"></i>
                 </div>
             </div>
         </a>
-        <a href="#" class="class_6"  >
+        <a href="<?=ROOT?>/admin/videos" class="class_6"  >
             <div class="class_7" >
-                <div class="class_11" >
+                <div class="<?=($title == 'videos') ? 'class_8' : 'class_11'?>" >
                     Videos
                 </div>
                 <div class="class_9" >
-                    <i  class="bi bi-camera-video class_10">
-                    </i>
+                    <i  class="bi bi-camera-video class_10"></i>
                 </div>
             </div>
         </a>
@@ -56,211 +56,63 @@
             <div class="class_7" >
             </div>
         </a>
-        <a href="#" class="class_6"  >
+        <a href="<?=ROOT?>/admin/playlists" class="class_6"  >
             <div class="class_7" >
-                <div class="class_11" >
+                <div class="<?=($title == 'playlists') ? 'class_8' : 'class_11'?>" >
                     Playlists
                 </div>
                 <div class="class_9" >
-                    <i  class="bi bi-stickies class_10">
-                    </i>
+                    <i  class="bi bi-stickies class_10"></i>
                 </div>
             </div>
         </a>
-        <a href="#" class="class_6"  >
+        <a href="<?=ROOT?>" class="class_6"  >
             <div class="class_7" >
-                <div class="class_14" >
+                <div class="class_11" >
                     Home Page
                 </div>
                 <div class="class_9" >
-                    <i  class="bi bi-globe-asia-australia class_10">
-                    </i>
+                    <i  class="bi bi-globe-asia-australia class_10"></i>
                 </div>
             </div>
         </a>
-        <a href="#" class="class_6"  >
+        <a href="<?=ROOT?>/logout" class="class_6"  >
             <div class="class_7" >
                 <div class="class_11" >
                     Logout
                 </div>
                 <div class="class_9" >
-                    <i  class="bi bi-box-arrow-right class_10">
-                    </i>
+                    <i  class="bi bi-box-arrow-right class_10"></i>
                 </div>
             </div>
         </a>
     </div>
     <div class="class_15" >
         <h2 class="class_16"  >
-            Dashboard
+            <?=ucfirst($title)?>
         </h2>
-        <div class="class_17" >
-            <div class="class_18" >
-                <i  class="bi bi-person-fill-gear class_19">
-                </i>
-                <h1 class="class_20"  >
-                    8
-                    <br >
-                </h1>
-                <h1 class="class_21"  >
-                    Admins
-                </h1>
-            </div>
-            <div class="class_18" >
-                <i  class="bi bi-people class_19">
-                </i>
-                <h1 class="class_20"  >
-                    1,000
-                </h1>
-                <h1 class="class_21"  >
-                    Users
-                    <br >
-                </h1>
-            </div>
-            <div class="class_18" >
-                <i  class="bi bi-camera-video class_19">
-                </i>
-                <h1 class="class_20"  >
-                    874
-                </h1>
-                <h1 class="class_21"  >
-                    Videos
-                </h1>
-            </div>
-            <div class="class_18" >
-                <i  class="bi bi-stickies-fill class_19">
-                </i>
-                <h1 class="class_20"  >
-                    564
-                </h1>
-                <h1 class="class_21"  >
-                    Playlists
-                </h1>
-            </div>
-        </div>
-        <h2 class="class_16"  >
-            Users
-        </h2>
-        <table class="item_class_0"  >
 
-            <thead >
+        <?php
+        switch($title){
+            case 'dashboard':
+               $this->view('admin/dashboard', $data);
+                break;
+            case 'users':
+                $this->view('admin/users', $data);
+                break;
+            case 'playlists':
+                $this->view('admin/playlists', $data);
+                break;
+            case 'videos':
+                $this->view('admin/videos', $data);
+                break;
+            default:
+                echo 'Page not found';
+                break;
+        }
+        ?>
 
-            <tr >
 
-                <th scope="col" >
-                    #
-                </th>
-
-                <th scope="col" >
-                    First
-                </th>
-
-                <th scope="col" >
-                    Last
-                </th>
-
-                <th scope="col" >
-                    Age
-                </th>
-
-                <th scope="col" >
-                    Email
-                </th>
-
-                <th  class="class_22">
-                    Image
-                </th>
-                <th >
-                    Action
-                </th>
-            </tr>
-
-            </thead>
-
-            <tbody >
-
-            <tr >
-
-                <th >
-                    1
-                </th>
-
-                <td >
-                    Mary
-                </td>
-
-                <td >
-                    Jane
-                </td>
-
-                <td >
-                    21
-                </td>
-
-                <td >
-                    mary@email.com
-                </td>
-
-                <td >
-                    <img src="<?=ROOT?>/assets_admin/images/pexels-photo-1066137.jpeg" class="class_23" >
-                </td>
-                <td >
-                    <button class="class_24"  >
-                        Edit
-                    </button>
-                    <button class="class_25"  >
-                        Delete
-                    </button>
-                </td>
-            </tr>
-
-            <tr >
-
-                <th >
-                    2
-                </th>
-
-                <td >
-                    Jacob
-                </td>
-
-                <td >
-                    Grant
-                </td>
-
-                <td >
-                    30
-                </td>
-
-                <td >
-                    jacob@email.com
-                </td>
-
-                <td >
-                    <img src="<?=ROOT?>/assets_admin/images/user.jpg" class="class_23" >
-                </td>
-                <td >
-                    <button class="class_24"  >
-                        Edit
-                    </button>
-                    <button class="class_25"  >
-                        Delete
-                    </button>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-        <div class="class_26" >
-            <div class="class_27" >
-            </div>
-            <button class="class_28"  >
-                Prev_Page
-            </button>
-            <button class="class_29"  >
-                Next_Page
-            </button>
-        </div>
     </div>
 </div>
 

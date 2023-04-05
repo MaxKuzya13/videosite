@@ -6,7 +6,6 @@
 
 namespace Model;
 
-use const Core\ROOT;
 
 defined('ROOTPATH') OR exit('Access Denied!');
 
