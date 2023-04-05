@@ -25,6 +25,20 @@ class Play
             // get all videos from the playlist
             $query = "select v.*, p.playlist_name, p.slug as playlist_slug from videos as v join playlists as p on v.playlist_id = p.id where v.playlist_id = :playlist_id";
             $data['related'] =  $video_class->query($query, ['playlist_id'=>$data['video']->playlist_id]);
+
+            if($ses->user('role') != "admin")
+            {
+                // update views and popularity
+                $video_class->query("update videos set views = views + 1 where id = :id limit 1", ['id'=>$data['video']->id]);
+
+                $views = $data['video']->views + 1;
+                $seconds = time() - strtotime($data['video']->date);
+                $days = floor($seconds / (60*60*24));
+
+                $popularity = $views / $days;
+                $video_class->query("update videos set popularity = :popularity  where id = :id limit 1", ['popularity'=>$popularity, 'id'=>$data['video']->id]);
+            }
+
         }
 
         $data['slug'] = $slug;

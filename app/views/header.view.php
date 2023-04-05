@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My video website</title>
+    <title><?=ucfirst(URL('page'))?> | <?=APP_NAME?></title>
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/css/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/css/styles.css?2173">
 </head>
