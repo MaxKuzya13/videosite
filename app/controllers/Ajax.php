@@ -38,6 +38,8 @@ class Ajax
         if($req->posted() && !empty($data['data_type']))
         {
             $info['data_type'] = $data['data_type'];
+            $video_added = false;
+            $image_added = false;
 
             // validate image and file
             if(!empty($_FILES['image']['name']))
@@ -47,6 +49,8 @@ class Ajax
                 {
                     $info['errors'][] = "Image format not supported";
                 }
+                $image_added = true;
+
             }
             if(!empty($_FILES['file']['name']))
             {
@@ -55,6 +59,7 @@ class Ajax
                 {
                     $info['errors'][] = "Video format not supported";
                 }
+                $video_added = true;
             }
             if($data['data_type'] == 'new_video')
             {
@@ -84,6 +89,63 @@ class Ajax
                     $info['errors'] = $video->errors;
                 }
             }else
+            if($data['data_type'] == 'edit_video')
+            {
+                if($video->validate($data) && empty($info['errors']))
+                {
+
+                    if($image_added)
+                    {
+                        $data['image'] = $folder . time() . $_FILES['image']['name'];
+                        move_uploaded_file($_FILES['image']['tmp_name'], $data['image']);
+                        $image = new Image();
+                        $image->resize($data['image'], 1000);
+
+                        //delete old image
+                        $row = $video->first(['id'=>$data['id']]);
+                        if($row)
+                        {
+                            if(file_exists($row->image))
+                                unlink($row->image);
+                        }
+                    }
+                    if($video_added)
+                    {
+                        $data['file'] = $folder . time() . $_FILES['file']['name'];
+                        move_uploaded_file($_FILES['file']['tmp_name'], $data['file']);
+
+                        //delete old file
+                        $row = $video->first(['id'=>$data['id']]);
+                        if($row)
+                        {
+                            if(file_exists($row->file))
+                                unlink($row->file);
+                        }
+                    }
+
+                    $video->update($data['id'], $data);
+                    $info['success'] = true;
+                } else {
+                    $info['errors'] = $video->errors;
+                }
+            }else
+                if($data['data_type'] == 'delete_video')
+                {
+                    //delete old files
+                    $row = $video->first(['id'=>$data['id']]);
+                    if($row)
+                    {
+                        if(file_exists($row->image))
+                            unlink($row->image);
+
+                        if(file_exists($row->file))
+                            unlink($row->file);
+                    }
+
+                    $video->delete($row->id,);
+                    $info['success'] = true;
+
+                }else
                 if($data['data_type'] == 'new_playlist' && empty($info['errors']))
                 {
                     if($playlist->validate($data))

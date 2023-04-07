@@ -9,6 +9,21 @@
             <h1 class="class_25" >
                 <?=$title?>
             </h1>
+
+            <?php if($video && $data_type == 'delete_video'): ?>
+                <div style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000">
+                    Are you sure you want to delete this video?!
+                </div>
+            <?php endif; ?>
+
+            <?php if(!$video && $data_type != "new_video"): ?>
+                <div style="text-align: center; padding: 1em; background-color: #ffd1d1;color: #a00000">
+                    That video could not be found
+                </div>
+            <?php else: ?>
+
+
+
             <label>
                 <div>Featured Image:</div>
                 <img src="<?=get_image($video->image ?? '')?>" class="class_62" style="cursor: pointer" >
@@ -76,6 +91,7 @@
                 <div class="class_79" >
                 </div>
             </div>
+            <?php endif; ?>
         </form>
     </section>
 
@@ -105,16 +121,21 @@
         let optional_fields = ['description', 'image', 'file'];
 
         if(data_type != 'delete_video'){
-            if(!image_added)
+
+            if(data_type == 'new_video')
             {
-                alert('Please add a valid image');
-                return;
+                if(!image_added)
+                {
+                    alert('Please add a valid image');
+                    return;
+                }
+                if(!file_added)
+                {
+                    alert('Please add a valid video file');
+                    return;
+                }
             }
-            if(!file_added)
-            {
-                alert('Please add a valid video file');
-                return;
-            }
+
 
             for (let i = inputs.length - 1; i >= 0; i--)
             {
@@ -124,10 +145,16 @@
                     alert("The field: "+inputs[i].name+" is required!");
                     return;
                 }
-                if(inputs[i].name == 'image' || inputs[i].name == 'file')
+                if(inputs[i].name == 'image')
                 {
-                    data.append(inputs[i].name, inputs[i].files[0]);
-                } else {
+                    if(image_added)
+                        data.append(inputs[i].name, inputs[i].files[0]);
+                } else
+                if(inputs[i].name == 'file')
+                {
+                    if(file_added)
+                        data.append(inputs[i].name, inputs[i].files[0]);
+                } else{
                     data.append(inputs[i].name, inputs[i].value);
                 }
             }
@@ -156,24 +183,31 @@
             {
                 if(xhr.status == 200)
                 {
-                    if(data_type == 'new_video'){
-                        alert("Uploading complete!");
-                        window.location.href = '<?=ROOT?>/admins/videos">';
-                    }else
-                    if(data_type == 'edit_video')
+                    console.log(xhr.responseText);
+                    let obj = JSON.parse(xhr.responseText);
+                    if(obj.success)
                     {
-                        alert("Video editing complete!");
-                        window.location.href = '<?=ROOT?>/admins/videos">';
-                    }else
-                    if(data_type == 'delete_video'){
-                        alert("Video deleted!");
-                        window.location.href = '<?=ROOT?>/admins/videos">';
+                        if(data_type == 'new_video'){
+                            alert("Uploading complete!");
+                        }else
+                        if(data_type == 'edit_video')
+                        {
+                            alert("Video editing complete!");
+                        }else
+                        if(data_type == 'delete_video'){
+                            alert("Video deleted!");
+                        }
+                        window.location.href = '<?=ROOT?>/admin/videos';
+                    } else {
+                        let str = '';
+                        for(key in obj.errors){
+                            str += obj.errors[key] + "<br>";
+                        }
+                        alert(str);
                     }
-                }else{
-                    alert("An error occured");
-                }
-
-                console.log(xhr.responseText);
+                } else{
+                alert("An error occured");
+            }
                 uploading = false;
             }
         });

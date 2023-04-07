@@ -27,6 +27,7 @@ class Video
         $data['playlists'] = $playlist->query("select * from playlists");
         $data['title'] = 'Upload Video';
         $data['data_type'] = 'new_video';
+        $data['video'] = false;
 
 
         $this->view('video', $data);

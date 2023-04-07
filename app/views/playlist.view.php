@@ -37,9 +37,11 @@
                 <button  class="class_77" >
                     Save
                 </button>
-                <button type="button" class="class_78" >
-                    Cancel
-                </button>
+                <a href="<?=ROOT?>/admin/playlists">
+                    <button type="button" class="class_78" >
+                        Cancel
+                    </button>
+                </a>
                 <div class="class_79" >
                 </div>
             </div>
